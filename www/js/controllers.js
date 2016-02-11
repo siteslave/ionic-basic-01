@@ -1,6 +1,23 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('LoginCtrl', function($scope, $state, $window) {
+
+  $scope.login = function () {
+    if ($scope.username == 'admin' && $scope.password == "123456") {
+      $window.sessionStorage.setItem('logged', true);
+      $state.go('tab.dash')
+    } else {
+      alert('Incorect username/password')
+    }
+  }
+})
+
+.controller('DashCtrl', function($scope, $window, $state) {
+    if (!$window.sessionStorage.getItem('logged')) {
+      $state.go('login');
+    }
+})
+
 
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();

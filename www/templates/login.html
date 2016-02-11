@@ -1,0 +1,24 @@
+<ion-view title="Login">
+  <ion-content class="padding">
+    <form name="frmLogin">
+
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Username</span>
+          <input type="text" ng-model="$parent.username" ng-required="true">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="$parent.password" ng-required="true">
+        </label>
+      </div>
+
+      <button ng-disabled="frmLogin.$invalid"
+      class="button button-block button-positive" ng-click="login()">
+        Login
+      </button>
+      
+    </form>
+
+  </ion-content>
+</ion-view>

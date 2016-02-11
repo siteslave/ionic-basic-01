@@ -19,7 +19,15 @@ angular.module('MyApp', [
 
 .config(function($stateProvider, $urlRouterProvider) {
 
+  $urlRouterProvider.otherwise('/tab/dash');
+
   $stateProvider
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
+  })
 
   .state('sample', {
     url: '/sample',
@@ -68,6 +76,6 @@ angular.module('MyApp', [
     }
   });
 
-  $urlRouterProvider.otherwise('/sample');
+
 
 });
