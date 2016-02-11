@@ -10,9 +10,9 @@
 
     <div class="list">
         <a class="item item-avatar item-icon-right" href="#/tab/detail/{{ $index }}" ng-repeat="u in users | filter: query">
-          <img ng-src="{{ u.face }}">
-          <h2>{{ u.name }}</h2>
-          <p>{{ u.lastText }}</p>
+          <img ng-src="{{ u.image }}">
+          <h2>{{ u.fullname }}</h2>
+          <p>Username: {{ u.username }}</p>
           <i class="icon ion-chevron-right icon-accessory"></i>
         </a>
     </div>

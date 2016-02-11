@@ -1,14 +1,26 @@
-angular.module('starter.controllers', ['starter.services.Login'])
+angular.module('starter.controllers', ['starter.services.Login', 'starter.services.Users'])
 .controller('DetailCtrl', function ($scope, $rootScope, $stateParams) {
   var idx = $stateParams.idx;
   console.log($rootScope.users[idx]);
   $scope.user = $rootScope.users[idx];
 })
-.controller('DashCtrl', function($scope, $rootScope, $window, $state) {
+.controller('DashCtrl', function($scope, $rootScope, $window, $state, UserService) {
     if (!$window.sessionStorage.getItem('logged')) {
       $state.go('login');
     }
 
+    $scope.users = [];
+
+    var db = $rootScope.db;
+    UserService.all(db)
+    .then(function (users) {
+      for(var i = 0; i <= users.length - 1; i++) {
+        $scope.users.push(users.item(i));
+      }
+    }, function (err) {
+      console.log(err);
+      alert(JSON.stringify(err));
+    })
 })
 
 .controller('NewCtrl', function($scope, $rootScope, $state) {
