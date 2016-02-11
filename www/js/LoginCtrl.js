@@ -1,4 +1,4 @@
-angular.module('starter.controllers.Login', [])
+angular.module('starter.controllers.Login', ['starter.services.Login'])
 .controller('LoginCtrl', function($scope, $rootScope, $state, $window, LoginService) {
 
   //LoginService.initialDb($rootScope.db);

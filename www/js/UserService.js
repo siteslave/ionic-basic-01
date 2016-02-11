@@ -1,5 +1,5 @@
 angular.module('starter.services.Users', [])
-.factory('UserService', function ($q, $cordovaSQLite) {
+.factory('UserService', function ($q, $cordovaSQLite, $window) {
   return {
     all: function (db) {
       var q = $q.defer();

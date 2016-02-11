@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['starter.services.Login', 'starter.services.Users'])
+angular.module('starter.controllers', ['starter.services.Users'])
 .controller('DetailCtrl', function ($scope, $rootScope, $stateParams) {
   var idx = $stateParams.idx;
   console.log($rootScope.users[idx]);
@@ -6,6 +6,14 @@ angular.module('starter.controllers', ['starter.services.Login', 'starter.servic
 })
 .controller('DashCtrl', function($scope, $rootScope, $window, $state, UserService) {
     if (!$window.sessionStorage.getItem('logged')) {
+      $state.go('login');
+    }
+
+    $scope.logout = function () {
+      $window.sessionStorage.removeItem('logged');
+      $window.sessionStorage.removeItem('fullname');
+      $window.sessionStorage.removeItem('username');
+
       $state.go('login');
     }
 

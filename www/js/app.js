@@ -30,7 +30,7 @@ angular.module('MyApp', [
       console.log("insertId: " + res.insertId);
     }, function (err) {
       console.log(err);
-    })
+    });
 
   });
 })
