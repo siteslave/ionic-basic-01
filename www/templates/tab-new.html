@@ -1,0 +1,31 @@
+<ion-view title="New User">
+  <ion-content class="padding">
+    <form name="frmNew">
+
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Id</span>
+          <input type="text" ng-model="$parent.id" ng-required="true">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Name</span>
+          <input type="text" ng-model="$parent.name" ng-required="true">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Last Text</span>
+          <input type="text" ng-model="$parent.lastText" ng-required="true">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Face</span>
+          <input type="text" ng-model="$parent.face" ng-required="true">
+        </label>
+      </div>
+
+      <button ng-disabled="frmNew.$invalid"
+      class="button button-block button-positive" ng-click="save()">
+        Save user
+      </button>
+
+    </form>
+  </ion-content>
+</ion-view>

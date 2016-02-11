@@ -20,7 +20,6 @@ angular.module('MyApp', [
 .config(function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise('/tab/dash');
-
   $stateProvider
 
   .state('login', {
@@ -48,34 +47,23 @@ angular.module('MyApp', [
       }
     }
   })
-  .state('tab.chats', {
-      url: '/chats', //  /tab/chats
+  .state('tab.new', {
+      url: '/new', //  /tab/chats
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'tab-new': {
+          templateUrl: 'templates/tab-new.html',
+          controller: 'NewCtrl'
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+    .state('tab.detail', {
+        url: '/detail/:idx', //  /tab/chats
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/user-detail.html',
+            controller: 'DetailCtrl'
+          }
         }
-      }
-    })
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  });
-
-
+      });
 
 });
