@@ -1,25 +1,16 @@
 angular.module('starter.services', [])
 
-.factory('Users', function() {
-
-  var users = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }];
+.factory('Users', function($q) {
 
   return {
+    initialDb: function (db) {
+      var q = $q.defer();
+
+      var sqlCreateUser = 'CREATE TABLE IF NOT EXIST users(id integer primary key, username text, password text, fullname text, sex text, birthdate text, image text)';
+      var sqlInserUser = 'INSERT INTO users(username, password, fullname, sex) VALUES("admin", "123456", "สถิตย์ เรียนพิศ", "1")';
+
+      
+    },
     all: function () {
       return users;
     }
