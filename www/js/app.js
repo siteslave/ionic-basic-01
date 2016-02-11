@@ -16,14 +16,15 @@ angular.module('MyApp', [
 
     $rootScope.db = $cordovaSQLite.openDB({ name: "myusers2.db" });
 
-    var sqlDrop = 'DROP TABLE IF EXISTS users';
+    //var sqlDrop = 'SELECT  users';
     var sqlCreateTable = 'CREATE TABLE IF NOT EXISTS users(username text, password text, fullname text, sex text, birthdate text, image text)';
     var sqlInserUser = 'INSERT INTO users(username, password, fullname, sex)  VALUES (?, ?, ?, ?)';
 
-    $cordovaSQLite.execute($rootScope.db, sqlDrop, [])
-    .then(function(res) {
-      return $cordovaSQLite.execute($rootScope.db, sqlCreateTable, []);
-    })
+    // $cordovaSQLite.execute($rootScope.db, sqlDrop, [])
+    // .then(function(res) {
+    //   return $cordovaSQLite.execute($rootScope.db, sqlCreateTable, []);
+    // })
+    $cordovaSQLite.execute($rootScope.db, sqlCreateTable, [])
     .then(function () {
       return $cordovaSQLite.execute($rootScope.db, sqlInserUser, ['admin', '123456', 'Satit Rianpit', '1']);
     }).then(function (res) {

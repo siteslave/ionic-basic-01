@@ -9,6 +9,10 @@ angular.module('starter.controllers', ['starter.services.Users'])
       $state.go('login');
     }
 
+    $scope.$on('$ionicView.enter', function(){
+      $scope.getList();
+    });
+    
     $scope.logout = function () {
       $window.sessionStorage.removeItem('logged');
       $window.sessionStorage.removeItem('fullname');
@@ -17,46 +21,71 @@ angular.module('starter.controllers', ['starter.services.Users'])
       $state.go('login');
     }
 
+    var db = $rootScope.db;
+
     $scope.users = [];
 
-    var db = $rootScope.db;
-    UserService.all(db)
-    .then(function (users) {
-      for(var i = 0; i <= users.length - 1; i++) {
-        $scope.users.push(users.item(i));
-      }
-    }, function (err) {
-      console.log(err);
-      alert(JSON.stringify(err));
-    })
+    $scope.getList = function () {
+      $scope.users = [];
+
+      UserService.all(db)
+      .then(function (users) {
+        for(var i = 0; i <= users.length - 1; i++) {
+          //$scope.users.push(users.item(i));
+          var obj = {};
+          obj.username = users.item(i).username;
+          obj.fullname = users.item(i).fullname;
+          obj.image = "data:image/jpeg;base64," + users.item(i).image;
+          $scope.users.push(obj);
+        }
+      }, function (err) {
+        console.log(err);
+        alert(JSON.stringify(err));
+      })
+    }
 })
 
-.controller('NewCtrl', function($scope, $rootScope, $state) {
-  $scope.save = function () {
-    /*
-    {
-      id: 1,
-      name: 'Max Lynx',
-      lastText: 'Hey, it\'s me',
-      face: 'img/max.png'
-    }
-    */
-    var user = {};
-    user.id = $scope.id;
-    user.name = $scope.name;
-    user.lastText = $scope.lastText;
-    user.face = $scope.face;
+.controller('NewCtrl', function($scope, $rootScope, $state, $cordovaCamera, UserService) {
 
-    $rootScope.users.push(user);
-    $state.go('tab.dash');
-    //
-    // var user = {
-    //   id: $scope.id,
-    //   name: $scope.name,
-    //   lastText: $scope.lastText,
-    //   face: $scope.face
-    // }
-    //
+  $scope.takePhoto = function () {
+    var options = {
+          quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 100,
+          targetHeight: 100,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation:true
+        };
+
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+          $scope.image_data = imageData;
+          $scope.img = "data:image/jpeg;base64," + imageData;
+        }, function(err) {
+          // error
+        });
+  };
+
+  $scope.save = function () {
+    var user = {};
+    user.fullname = $scope.fullname;
+    user.username = $scope.username;
+    user.password = $scope.password;
+    user.sex = $scope.sex;
+    user.birthdate = $scope.birthdate;
+    user.image = $scope.image_data;
+
+    UserService.save($rootScope.db, user)
+    .then(function () {
+      $state.go('tab.dash')
+    }, function (err) {
+      alert('Error');
+      console.log(err);
+    })
+
   }
 
 });

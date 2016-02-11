@@ -4,21 +4,38 @@
 
       <div class="list">
         <label class="item item-input">
-          <span class="input-label">Id</span>
-          <input type="text" ng-model="$parent.id" ng-required="true">
+          <span class="input-label">Username</span>
+          <input type="text" ng-model="$parent.username" ng-required="true">
         </label>
         <label class="item item-input">
-          <span class="input-label">Name</span>
-          <input type="text" ng-model="$parent.name" ng-required="true">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="$parent.password" ng-required="true">
         </label>
         <label class="item item-input">
-          <span class="input-label">Last Text</span>
-          <input type="text" ng-model="$parent.lastText" ng-required="true">
+          <span class="input-label">Fullname</span>
+          <input type="text" ng-model="$parent.fullname" ng-required="true">
         </label>
         <label class="item item-input">
-          <span class="input-label">Face</span>
-          <input type="text" ng-model="$parent.face" ng-required="true">
+          <span class="input-label">Birthdate</span>
+          <input type="date" ng-model="$parent.birthdate" ng-required="true">
         </label>
+        <label class="item item-input item-select">
+            <div class="input-label">
+              Sex
+            </div>
+            <select ng-model="$parent.sex">
+              <option value="1">ชาย</option>
+              <option value="2">หญิง</option>
+            </select>
+          </label>
+          <a class="item item-icon-right" ng-click="takePhoto()">
+            <i class="icon ion-camera"></i>
+            Picture
+          </a>
+
+          <div class="item item-body">
+            <img class="full-image" ng-src="{{ $parent.img }}">
+          </div>
       </div>
 
       <button ng-disabled="frmNew.$invalid"
