@@ -17,6 +17,15 @@ $dark:                            #444 !default;
 
 $positive:                        #3F51B5 !default;
 
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;;
+  padding: 3rem;
+}
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 

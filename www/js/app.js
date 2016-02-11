@@ -1,6 +1,6 @@
 
 angular.module('MyApp', [
-  'ionic', 'starter.controllers', 'starter.services', 'ngCordova'
+  'ionic', 'starter.controllers', 'ngCordova', 'starter.controllers.Login'
 ])
 
 .run(function($ionicPlatform, $rootScope, $cordovaSQLite) {
@@ -14,20 +14,41 @@ angular.module('MyApp', [
       StatusBar.styleDefault();
     }
 
-    $rootScope.db = $cordovaSQLite.openDB({ name: "myusers.db" });
+    $rootScope.db = $cordovaSQLite.openDB({ name: "myusers2.db" });
+
+    var sqlDrop = 'DROP TABLE IF EXISTS users';
+    var sqlCreateTable = 'CREATE TABLE IF NOT EXISTS users(username text, password text, fullname text, sex text, birthdate text, image text)';
+    var sqlInserUser = 'INSERT INTO users(username, password, fullname, sex)  VALUES (?, ?, ?, ?)';
+
+    $cordovaSQLite.execute($rootScope.db, sqlDrop, [])
+    .then(function(res) {
+      return $cordovaSQLite.execute($rootScope.db, sqlCreateTable, []);
+    })
+    .then(function () {
+      return $cordovaSQLite.execute($rootScope.db, sqlInserUser, ['admin', '123456', 'Satit Rianpit', '1']);
+    }).then(function (res) {
+      console.log("insertId: " + res.insertId);
+    }, function (err) {
+      console.log(err);
+    })
 
   });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/intro');
   $stateProvider
 
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'LoginCtrl'
+  })
+
+  .state('intro', {
+    url: '/intro',
+    templateUrl: 'templates/intro.html'
   })
 
   .state('sample', {

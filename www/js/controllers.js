@@ -1,28 +1,14 @@
-angular.module('starter.controllers', [])
-
-.controller('LoginCtrl', function($scope, $state, $window) {
-
-  $scope.login = function () {
-    if ($scope.username == 'admin' && $scope.password == "123456") {
-      $window.sessionStorage.setItem('logged', true);
-      $state.go('tab.dash')
-    } else {
-      alert('Incorect username/password')
-    }
-  }
-})
-
+angular.module('starter.controllers', ['starter.services.Login'])
 .controller('DetailCtrl', function ($scope, $rootScope, $stateParams) {
   var idx = $stateParams.idx;
   console.log($rootScope.users[idx]);
   $scope.user = $rootScope.users[idx];
 })
-.controller('DashCtrl', function($scope, $rootScope, $window, $state, Users) {
+.controller('DashCtrl', function($scope, $rootScope, $window, $state) {
     if (!$window.sessionStorage.getItem('logged')) {
       $state.go('login');
     }
-    // get users
-    $rootScope.users = Users.all();
+
 })
 
 .controller('NewCtrl', function($scope, $rootScope, $state) {
