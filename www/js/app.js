@@ -16,17 +16,17 @@ angular.module('MyApp', [
 
     $rootScope.db = $cordovaSQLite.openDB({ name: "myusers2.db" });
 
-    //var sqlDrop = 'SELECT  users';
-    var sqlCreateTable = 'CREATE TABLE IF NOT EXISTS users(username text, password text, fullname text, sex text, birthdate text, image text)';
-    var sqlInserUser = 'INSERT INTO users(username, password, fullname, sex)  VALUES (?, ?, ?, ?)';
+    var sqlDrop = 'DROP TABLE IF EXISTS users';
+    var sqlCreateTable = 'CREATE TABLE IF NOT EXISTS users(username text, password text, fullname text, sex text, birthdate text, telephone, image text)';
+    var sqlInserUser = 'INSERT INTO users(username, password, fullname, sex, telephone)  VALUES (?, ?, ?, ?, ?)';
 
-    // $cordovaSQLite.execute($rootScope.db, sqlDrop, [])
-    // .then(function(res) {
-    //   return $cordovaSQLite.execute($rootScope.db, sqlCreateTable, []);
-    // })
+    $cordovaSQLite.execute($rootScope.db, sqlDrop, [])
+    .then(function(res) {
+      return $cordovaSQLite.execute($rootScope.db, sqlCreateTable, []);
+    })
     $cordovaSQLite.execute($rootScope.db, sqlCreateTable, [])
     .then(function () {
-      return $cordovaSQLite.execute($rootScope.db, sqlInserUser, ['admin', '123456', 'Satit Rianpit', '1']);
+      return $cordovaSQLite.execute($rootScope.db, sqlInserUser, ['admin', '123456', 'Satit Rianpit', '1', '1234567890']);
     }).then(function (res) {
       console.log("insertId: " + res.insertId);
     }, function (err) {
@@ -81,7 +81,7 @@ angular.module('MyApp', [
       }
     })
     .state('tab.detail', {
-        url: '/detail/:idx', //  /tab/chats
+        url: '/detail/:username',
         views: {
           'tab-dash': {
             templateUrl: 'templates/user-detail.html',

@@ -14,7 +14,7 @@
     </div>
 
     <div class="list">
-        <a class="item item-avatar item-icon-right" href="#/tab/detail/{{ $index }}" ng-repeat="u in users | filter: query">
+        <a class="item item-avatar item-icon-right" href="#/tab/detail/{{ u.username }}" ng-repeat="u in users | filter: query">
           <img ng-src="{{ u.image }}">
           <h2>{{ u.fullname }}</h2>
           <p>Username: {{ u.username }}</p>

@@ -1,22 +1,55 @@
-<ion-view title="User detail">
+<ion-view title="Edit user">
+  <ion-nav-buttons side="right">
+  <a class="button button-icon icon ion-ios-telephone" ng-href="tel:+66810538180"></a>
+</ion-nav-buttons>
   <ion-content class="padding">
-    <div class="list">
-      <label class="item item-input">
-        <span class="input-label">Id</span>
-        <input type="text" ng-model="$parent.user.id" ng-required="true">
-      </label>
-      <label class="item item-input">
-        <span class="input-label">Name</span>
-        <input type="text" ng-model="$parent.user.name" ng-required="true">
-      </label>
-      <label class="item item-input">
-        <span class="input-label">Last Text</span>
-        <input type="text" ng-model="$parent.user.lastText" ng-required="true">
-      </label>
-      <label class="item item-input">
-        <span class="input-label">Face</span>
-        <input type="text" ng-model="$parent.user.face" ng-required="true">
-      </label>
-    </div>
+    <form name="frmNew">
+
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Username</span>
+          <input type="text" ng-model="$parent.username" ng-required="true" ng-disabled="true">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="$parent.password" ng-required="true">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Fullname</span>
+          <input type="text" ng-model="$parent.fullname" ng-required="true">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Birthdate</span>
+          <input type="date" ng-model="$parent.birthdate" ng-required="true">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Telephone</span>
+          <input type="text" ng-model="$parent.telephone" ng-required="true">
+        </label>
+        <label class="item item-input item-select">
+            <div class="input-label">
+              Sex
+            </div>
+            <select ng-model="$parent.sex">
+              <option value="1">ชาย</option>
+              <option value="2">หญิง</option>
+            </select>
+          </label>
+          <a class="item item-icon-right" ng-click="takePhoto()">
+            <i class="icon ion-camera"></i>
+            Picture
+          </a>
+
+          <div class="item item-body">
+            <img class="full-image" ng-src="{{ $parent.img }}">
+          </div>
+      </div>
+
+      <button ng-disabled="frmNew.$invalid"
+      class="button button-block button-positive" ng-click="save()">
+        Save user
+      </button>
+
+    </form>
   </ion-content>
 </ion-view>
