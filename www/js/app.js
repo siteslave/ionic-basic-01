@@ -3,8 +3,9 @@ angular.module('MyApp', [
   'ionic', 'starter.controllers', 'ngCordova', 'starter.controllers.Login'
 ])
 
-.run(function($ionicPlatform, $rootScope, $cordovaSQLite) {
+.run(function($ionicPlatform, $rootScope, $cordovaSQLite, $http) {
   $ionicPlatform.ready(function() {
+
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -31,6 +32,38 @@ angular.module('MyApp', [
       console.log("insertId: " + res.insertId);
     }, function (err) {
       console.log(err);
+    });
+
+    // push
+
+    var push = PushNotification.init({
+        android: {
+            senderID: "489756813528"
+        },
+        ios: {
+            alert: "true",
+            badge: "true",
+            sound: "true"
+        },
+        windows: {}
+    });
+
+    push.on('registration', function(data) {
+      console.log(data);
+      // data.registrationId
+      $http.post('http://192.168.1.50:3000/register', {regid: data.registrationId})
+      .success(function () {
+        //
+      });
+    });
+
+    push.on('notification', function(data) {
+      console.log(data);
+      alert(data.message);
+    });
+
+    push.on('error', function(e) {
+        console.log(e);
     });
 
   });

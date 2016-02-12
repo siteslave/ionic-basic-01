@@ -56,9 +56,7 @@ angular.module('starter.controllers', ['starter.services.Users'])
       $state.go('tab.dash')
     }, function (err) {
       console.log(err);
-
     })
-
   }
 
 })
@@ -113,7 +111,7 @@ angular.module('starter.controllers', ['starter.services.Users'])
     }
 })
 
-.controller('NewCtrl', function($scope, $rootScope, $state, $cordovaCamera, UserService, $ionicLoading) {
+.controller('NewCtrl', function($scope, $rootScope, $state, $cordovaCamera, UserService, $ionicLoading, $http) {
 
   $scope.takePhoto = function () {
     var options = {
@@ -154,8 +152,15 @@ angular.module('starter.controllers', ['starter.services.Users'])
     UserService.save($rootScope.db, user)
 
     .then(function () {
-      $ionicLoading.hide();
-      $state.go('tab.dash')
+      $http.post('http://192.168.1.50:3000/send-msg')
+      .success(function () {
+        $ionicLoading.hide();
+        $state.go('tab.dash')
+      })
+      .error(function () {
+        //
+      })
+
     }, function (err) {
       alert('Error');
       console.log(err);
